@@ -4,6 +4,11 @@
 **/build/
 **/.turbo/
 
+# Ignore local Conda environments
+.venv-llm-train/
+.venv-api/
+.venv-llm-serve/
+
 # Python dependencies
 **/__pycache__/
 **/*.pyc

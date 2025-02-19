@@ -115,6 +115,36 @@ bun test  # For frontend
 pytest    # For backend
 ```
 
+## Conda Environments
+
+Since this repository contains multiple services with different dependencies, it is recommended to use separate Conda environments for each relevant service:
+
+### Backend API (services/api/)
+
+```sh
+conda create -n alfred-api python=3.13.0
+conda activate alfred-api
+pip install -r services/api/requirements.txt
+```
+
+### LLM Training (services/llm/training/)
+
+```sh
+conda create -n alfred-llm-train python=3.13.0 pytorch -c pytorch
+conda activate alfred-llm-train
+pip install -r services/llm/training/requirements.txt
+```
+
+### LLM Serving (services/llm/serving/)
+
+```sh
+conda create -n alfred-llm-serve python=3.13.0 fastapi uvicorn
+conda activate alfred-llm-serve
+pip install -r services/llm/serving/requirements.txt
+```
+
+This approach ensures that dependencies remain isolated and prevents conflicts between different parts of the system.
+
 ## Deployment
 
 ### CI/CD
