@@ -1,0 +1,72 @@
+# Node.js dependencies
+**/node_modules/
+**/dist/
+**/build/
+**/.turbo/
+
+# Python dependencies
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/.venv/
+**/venv/
+**/env/
+**/.mypy_cache/
+**/.pytest_cache/
+
+# Logs and temporary files
+**/logs/
+**/*.log
+**/tmp/
+**/coverage/
+**/cache/
+
+# Environment variables
+**/.env
+**/.env.production
+**/.env.development
+**/.env.local
+**/.env.*.local
+**/secrets.json
+**/config.json
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# OS-specific files
+Thumbs.db
+desktop.ini
+
+# Docker
+**/docker-compose.override.yml
+**/.dockerignore
+
+# LLM models and data
+**/services/llm/training/data/
+**/services/llm/serving/models/
+
+# Mobile-specific
+**/apps/mobile/android/.gradle/
+**/apps/mobile/android/app/build/
+**/apps/mobile/ios/Pods/
+**/apps/mobile/ios/build/
+
+# Test coverage reports
+**/coverage/
+**/jest-coverage/
+**/.nyc_output/
+
+# CI/CD
+**/.github/workflows/*.log
+**/.husky/
+
+# Deployment & package lock files
+**/yarn.lock
+**/pnpm-lock.yaml
+**/package-lock.json
+**/pip-log.txt
+**/poetry.lock
