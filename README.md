@@ -8,7 +8,7 @@ Alfred is a comprehensive software ecosystem developed and maintained by JUDICIA
 
 ```
 alfred/
-├── apps/                   # Frontend clients
+├── apps/                  # Frontend clients
 │   ├── web/               # Web application
 │   │   ├── public/        # Static assets (MDX, images)
 │   │   ├── src/           # Source code (NEXTJS, CONVEX)
@@ -37,20 +37,20 @@ alfred/
 │       ├── src/           # Shared code (TypeScript, Python)
 │       └── package.json   # JS package config
 ├── docs/                  # Documentation
-│   ├── setup.md          # Development setup guide
-│   └── api-reference.md  # API specs
+│   ├── setup.md           # Development setup guide
+│   └── api-reference.md   # API specs
 ├── scripts/               # Utility scripts
-│   ├── deploy.sh         # Deployment scripts
-│   └── setup-env.sh      # Environment setup
-├── .github/              # CI/CD workflows
-│   └── workflows/        # GitHub Actions workflows
-│       ├── web.yml       # Web app CI
-│       ├── mobile.yml    # Mobile app CI
-│       └── api.yml       # API/LLM CI
-├── .gitignore            # Ignore node_modules, models, .env, etc.
-├── LICENSE               # Proprietary license file
-├── README.md             # This document
-├── docker-compose.yml    # Orchestrate services (API, LLM, databases)
+│   ├── deploy.sh          # Deployment scripts
+│   └── setup-env.sh       # Environment setup
+├── .github/               # CI/CD workflows
+│   └── workflows/         # GitHub Actions workflows
+│       ├── web.yml        # Web app CI
+│       ├── mobile.yml     # Mobile app CI
+│       └── api.yml        # API/LLM CI
+├── .gitignore             # Ignore node_modules, models, .env, etc.
+├── LICENSE                # Proprietary license file
+├── README.md              # This document
+├── docker-compose.yml     # Orchestrate services (API, LLM, databases)
 ```
 
 ## Getting Started
