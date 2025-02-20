@@ -23,7 +23,7 @@ def extrude_href(target_HTML=""):
     """
     Extract hrefs and category titles from <a> elements with class "link-secondary".
     """
-    print("=== Extracting hrefs and titles from provided HTML ===")
+    print("==== ExtractING HREFS and TITLES FROM PROVIDED HTML ====")
     soup = BeautifulSoup(target_HTML, "html.parser")
     links = soup.find_all("a", class_="link-secondary")
     results = []
@@ -31,7 +31,7 @@ def extrude_href(target_HTML=""):
         href = link.get("href")
         title = link.text.strip()
         results.append((href, title))
-        print(f"  Extracted: href='{href}' | title='{title}'")
+        print(f"  -> Extracted: href='{href}' | title='{title}'")
     return results
 
 
@@ -53,9 +53,8 @@ def get_month_links(html):
     Parse the given HTML and return a list of month links.
     This example uses a regex that matches month names.
     """
-    print("=== Extracting month links ===")
+    print("==== ExtractING MONTH LINKS ====")
     soup = BeautifulSoup(html, "html.parser")
-    print(f"Month page HTML snippet (first 10 chars): {html[:10]}...")
     month_links = []
     for li in soup.find_all("li", class_="make-database"):
         link = li.find("a", href=True)
@@ -104,13 +103,14 @@ def process_subdirectories(base_url="", extracted=None):
     Process each category using the order given by the extracted (href, title) pairs.
     """
 
-    print("Base URL:", base_url)
-    print(f"Processing {len(extracted)} category links (by order).")
+    print("==== BASE URL:", base_url)
+    print(f"==== Processing {len(extracted)} category links (by order). ====")
     for idx, (href, title) in enumerate(extracted):
         category_url = urljoin(base_url, href)
-        print(f"\n=== Processing category URL: {category_url} ===")
-        print(f"Category title: {title}")
-        print(f"Assigned folder: {title}")
+        print("\n############################################################")
+        print(f"### Processing Category URL: {category_url}")
+        print(f"### Category Title: {title}")
+        print("############################################################")
 
         script_dir = os.path.dirname(os.path.abspath(__file__))
         training_dir = os.path.dirname(script_dir)
@@ -118,7 +118,7 @@ def process_subdirectories(base_url="", extracted=None):
         os.makedirs(target_folder, exist_ok=True)
 
         if not os.path.exists(target_folder):
-            print(f"❌ Subdirectory does not exist: {target_folder}")
+            print(f"!!! Subdirectory does not exist: {target_folder}")
             continue
 
         try:
@@ -130,61 +130,60 @@ def process_subdirectories(base_url="", extracted=None):
                 print(f"Failed to fetch category page: {category_url}")
                 continue
             cat_html = cat_response.text
-            print(f"Name: {category_url}")
-            print(f"Category page HTML snippet (first 10 chars): {cat_html[:10]}...")
+            print(f"+++ Category page HTML snippet: {cat_html[:10]} +++")
         except Exception as e:
-            print(f"Error processing {category_url}: {e}")
+            print(f"!!! Error processing {category_url}: {e}")
             continue
 
         year_links = get_year_links(cat_html)
         if not year_links:
-            print("❌ No year links found on category page.")
+            print("!!! No year links found on category page.")
             continue
 
         for y_href in year_links:
-            category_base = (
-                category_url if category_url.endswith("/") else category_url + "/"
-            )
+            # Build absolute year URL.
             year_url = (
                 urljoin(category_url + "/", y_href)
                 if not y_href.startswith("http")
                 else y_href
             )
-            print(f"Assigned folder: {title}")
-            print(f"\n  === Processing year page: {year_url} ===")
             try:
                 year_response = requests.get(year_url, headers=HEADERS)
                 if year_response.status_code != 200:
-                    print(f"  Failed to fetch year page: {year_url}")
+                    print(f"!!! Failed to fetch year page: {year_url}")
                     continue
                 year_html = year_response.text
-                print(f"Year page HTML snippet (first 10 chars): {year_html[:10]}...")
             except Exception as e:
-                print(f"  Error fetching year page {year_url}: {e}")
+                print(f"!!! Error fetching year page {year_url}: {e}")
                 continue
 
             month_links = get_month_links(year_html)
-            print(f"✅ Found month links: {month_links}")
             if not month_links:
                 print("❌  No month links found on year page.")
                 continue
 
+            total_files_year = len(month_links)
+            remaining_files_year = total_files_year
+            print("\n****************************************************")
+            print(f"*** Processing Year Page: {year_url}")
+            print(f"*** {total_files_year} case files found for this year")
+            print("****************************************************\n")
+
             for file_href in month_links:
+                print(
+                    f"+++ {remaining_files_year} case files remaining for year page {year_url} +++"
+                )
                 file_url = urljoin(year_url + "/", file_href)
-                print(f"\n    === Processing case url: {file_url} ===")
                 try:
                     file_response = requests.get(file_url, headers=HEADERS)
                     if file_response.status_code != 200:
-                        print(f"    Failed to fetch case url: {file_url}")
+                        print(f"!!! Failed to fetch case url: {file_url}")
+                        remaining_files_year -= 1
                         continue
                     file_html = file_response.text
-                    print(
-                        f"✅ Case url HTML snippet (first 50 chars): {file_html[:50]}..."
-                    )
                     soup = BeautifulSoup(file_html, "html.parser")
                     case_name = soup.title.string if soup.title else f"case_{idx}"
                     case_name = re.sub(r'[\/:*?"<>|]', "_", case_name)
-                    print(f"Extracted case name: {case_name}")
 
                     # Check if output file already exists before proceeding.
                     case_id = (
@@ -193,28 +192,32 @@ def process_subdirectories(base_url="", extracted=None):
                     safe_case_id = f"case_{case_id}"
                     file_name = os.path.join(target_folder, f"{case_name}.txt")
                     if os.path.exists(file_name):
-                        print(f"File {file_name} already exists, skipping...")
+                        print(f"❌ File {file_name} already exists, skipping...")
+                        remaining_files_year -= 1
                         continue
 
                     rtf_href = get_rtf_link(file_html)
                     if not rtf_href:
                         print("❌      No RTF link found on case page.")
+                        remaining_files_year -= 1
                         continue
 
                     rtf_url = urljoin(file_url, rtf_href)
-                    print(f"        Downloading RTF file: {rtf_url}")
+                    print(f"+++ Downloading RTF file: {rtf_url} +++")
                     try:
                         rtf_response = requests.get(rtf_url, headers=HEADERS)
                         print(
-                            f"        RTF Response Status: {rtf_response.status_code}"
+                            f"+++ RTF Response Status: {rtf_response.status_code} +++"
                         )
                         if rtf_response.status_code != 200:
-                            print(f"        Failed to download RTF file: {rtf_url}")
+                            print(f"!!! Failed to download RTF file: {rtf_url}")
+                            remaining_files_year -= 1
                             continue
                         rtf_content = rtf_response.text
                         print(f"        RTF Content Length: {len(rtf_content)}")
                     except Exception as e:
-                        print(f"        Error downloading RTF file {rtf_url}: {e}")
+                        print(f"!!! Error downloading RTF file {rtf_url}: {e}")
+                        remaining_files_year -= 1
                         continue
 
                     try:
@@ -226,14 +229,19 @@ def process_subdirectories(base_url="", extracted=None):
                     try:
                         with open(file_name, "w", encoding="utf-8") as f:
                             f.write(case_text)
-                        print(f"        Written file: {file_name}")
+                        print(f"✅✅✅+++ Written file: {file_name} +++")
                     except Exception as e:
-                        print(f"        Error writing file {file_name}: {e}")
+                        print(f"!!! Error writing file {file_name}: {e}")
 
+                    remaining_files_year -= 1
+                    print(
+                        f"=== {remaining_files_year} case files remaining for year page {year_url} ==="
+                    )
                     time.sleep(random.uniform(1, 3))
 
                 except Exception as e:
-                    print(f"    Error fetching file page {file_url}: {e}")
+                    print(f"!!! Error fetching file page {file_url}: {e}")
+                    remaining_files_year -= 1
                     continue
 
     # End of processing one category.
@@ -241,19 +249,20 @@ def process_subdirectories(base_url="", extracted=None):
 
 # End of process_subdirectories()
 
+# <tr><td><a href="/za/journals/ADRY" class="link-secondary">South Africa: African Disability Rights Yearbook </a></td></tr>
+#                     <tr><td><a href="/za/journals/AHRLJ" class="link-secondary">South Africa: African Human Rights Law Journal </a></td></tr>
+#                     <tr><td><a href="/za/journals/ALR" class="link-secondary">South Africa: African Law Review </a></td></tr>
+#                     <tr><td><a href="/za/cases/ZACAC" class="link-secondary">South Africa: Competition Appeal Court</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZACT" class="link-secondary">South Africa: Competition Tribunal</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZACONAF" class="link-secondary">South Africa: Consumer Affairs Court</a></td></tr>
+
 
 def main():
     # Base URL for building absolute URLs
     base_url = "https://www.saflii.org"
 
     target_HTML = """<table class="table table-striped table-bordered rounded">
-                    <tbody>
-                    <tr><td><a href="/za/journals/ADRY" class="link-secondary">South Africa: African Disability Rights Yearbook </a></td></tr>
-                    <tr><td><a href="/za/journals/AHRLJ" class="link-secondary">South Africa: African Human Rights Law Journal </a></td></tr>
-                    <tr><td><a href="/za/journals/ALR" class="link-secondary">South Africa: African Law Review </a></td></tr>
-                    <tr><td><a href="/za/cases/ZACAC" class="link-secondary">South Africa: Competition Appeal Court</a></td></tr>
-                    <tr><td><a href="/za/cases/ZACT" class="link-secondary">South Africa: Competition Tribunal</a></td></tr>
-                    <tr><td><a href="/za/cases/ZACONAF" class="link-secondary">South Africa: Consumer Affairs Court</a></td></tr>
+                    <tbody> 
                     <tr><td><a href="/za/cases/ZACGSO" class="link-secondary">South Africa: Consumer Goods and Services Ombud</a></td></tr>
                     <tr><td><a href="/za/cases/ZACC" class="link-secondary">South Africa: Constitutional Court</a></td></tr>
                     <tr><td><a href="/za/other/ZACCRolls" class="link-secondary">South Africa: Constitutional Court Rolls</a></td></tr>
