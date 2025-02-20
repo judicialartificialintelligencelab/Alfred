@@ -107,25 +107,20 @@ def process_subdirectories(base_url="", extracted=None):
     print("Base URL:", base_url)
     print(f"Processing {len(extracted)} category links (by order).")
     for idx, (href, title) in enumerate(extracted):
-        # Use urljoin to build the full URL.
         category_url = urljoin(base_url, href)
         print(f"\n=== Processing category URL: {category_url} ===")
         print(f"Category title: {title}")
         print(f"Assigned folder: {title}")
 
-        # Use the target subdirectory directly for saving the file
         script_dir = os.path.dirname(os.path.abspath(__file__))
         training_dir = os.path.dirname(script_dir)
         target_folder = os.path.join(training_dir, "data", title)
-        os.makedirs(target_folder, exist_ok=True)  # Ensure folder exists
+        os.makedirs(target_folder, exist_ok=True)
 
-        # Ensure that the subdirectory already exists, no need to create it
         if not os.path.exists(target_folder):
             print(f"❌ Subdirectory does not exist: {target_folder}")
             continue
 
-        # ----------------------------
-        # Download the category page
         try:
             cat_response = requests.get(
                 category_url, headers=HEADERS, allow_redirects=True
@@ -140,16 +135,13 @@ def process_subdirectories(base_url="", extracted=None):
         except Exception as e:
             print(f"Error processing {category_url}: {e}")
             continue
-        # ----------------------------
 
-        # Now that the category page is downloaded, proceed with extracting year links.
         year_links = get_year_links(cat_html)
         if not year_links:
             print("❌ No year links found on category page.")
             continue
 
         for y_href in year_links:
-            # Ensure the category URL ends with a slash
             category_base = (
                 category_url if category_url.endswith("/") else category_url + "/"
             )
@@ -171,7 +163,6 @@ def process_subdirectories(base_url="", extracted=None):
                 print(f"  Error fetching year page {year_url}: {e}")
                 continue
 
-            # Extract month links from the year page.
             month_links = get_month_links(year_html)
             print(f"✅ Found month links: {month_links}")
             if not month_links:
@@ -179,7 +170,6 @@ def process_subdirectories(base_url="", extracted=None):
                 continue
 
             for file_href in month_links:
-                # Ensure the year URL ends with a slash
                 file_url = urljoin(year_url + "/", file_href)
                 print(f"\n    === Processing case url: {file_url} ===")
                 try:
@@ -191,22 +181,27 @@ def process_subdirectories(base_url="", extracted=None):
                     print(
                         f"✅ Case url HTML snippet (first 50 chars): {file_html[:50]}..."
                     )
-                    # Extract the case name from the HTML <title> tag
                     soup = BeautifulSoup(file_html, "html.parser")
-                    case_name = (
-                        soup.title.string if soup.title else f"case_{idx}"
-                    )  # Fallback if no title
-                    case_name = re.sub(
-                        r'[\/:*?"<>|]', "_", case_name
-                    )  # Sanitize the case name
+                    case_name = soup.title.string if soup.title else f"case_{idx}"
+                    case_name = re.sub(r'[\/:*?"<>|]', "_", case_name)
                     print(f"Extracted case name: {case_name}")
+
+                    # Check if output file already exists before proceeding.
+                    case_id = (
+                        re.search(r"\d+\.html$", file_url).group().replace(".html", "")
+                    )
+                    safe_case_id = f"case_{case_id}"
+                    file_name = os.path.join(target_folder, f"{case_name}.txt")
+                    if os.path.exists(file_name):
+                        print(f"File {file_name} already exists, skipping...")
+                        continue
 
                     rtf_href = get_rtf_link(file_html)
                     if not rtf_href:
                         print("❌      No RTF link found on case page.")
                         continue
-                    # KEY FIX: Use case_url as the base for urljoin, not base_url
-                    rtf_url = urljoin(file_url, rtf_href)  # <-- CHANGE HERE
+
+                    rtf_url = urljoin(file_url, rtf_href)
                     print(f"        Downloading RTF file: {rtf_url}")
                     try:
                         rtf_response = requests.get(rtf_url, headers=HEADERS)
@@ -223,20 +218,11 @@ def process_subdirectories(base_url="", extracted=None):
                         continue
 
                     try:
-                        # Convert RTF to text
                         case_text = rtf_to_text(rtf_content)
                     except Exception as e:
                         print(f"        Error converting RTF to text: {e}")
                         continue
 
-                    # Construct the case file name
-                    case_id = (
-                        re.search(r"\d+\.html$", file_url).group().replace(".html", "")
-                    )
-                    safe_case_id = f"case_{case_id}"
-                    file_name = os.path.join(target_folder, f"{case_name}.txt")
-
-                    # Write the case text to the file
                     try:
                         with open(file_name, "w", encoding="utf-8") as f:
                             f.write(case_text)
@@ -244,7 +230,6 @@ def process_subdirectories(base_url="", extracted=None):
                     except Exception as e:
                         print(f"        Error writing file {file_name}: {e}")
 
-                    # Add randomized delay between 1-3 seconds
                     time.sleep(random.uniform(1, 3))
 
                 except Exception as e:
