@@ -182,4 +182,4 @@ GitHub Actions workflows automate testing and deployment. Ensure all changes pas
 
 This software is proprietary and confidential. Unauthorized distribution is prohibited.
 
-© 2025 JUDICIAL ARTIFICIAL INTELLIGENCE LABS. All rights reserved.
+© 2025 JUDICIAL ARTIFICIAL INTELLIGENCE LAB. All rights reserved.
