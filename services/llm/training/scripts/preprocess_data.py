@@ -255,6 +255,17 @@ def process_subdirectories(base_url="", extracted=None):
 #                     <tr><td><a href="/za/cases/ZACAC" class="link-secondary">South Africa: Competition Appeal Court</a></td></tr>
 #                     <tr><td><a href="/za/cases/ZACT" class="link-secondary">South Africa: Competition Tribunal</a></td></tr>
 #                     <tr><td><a href="/za/cases/ZACONAF" class="link-secondary">South Africa: Consumer Affairs Court</a></td></tr>
+#  <tr><td><a href="/za/cases/ZACGSO" class="link-secondary">South Africa: Consumer Goods and Services Ombud</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZACC" class="link-secondary">South Africa: Constitutional Court</a></td></tr>
+#                     <tr><td><a href="/za/other/ZACCRolls" class="link-secondary">South Africa: Constitutional Court Rolls</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZACCP" class="link-secondary">South Africa: Court of the Commissioner of Patents</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZACOMMC" class="link-secondary">South Africa: Commercial Crime Court</a></td></tr>
+#                     <tr><td><a href="/za/journals/DEJURE" class="link-secondary">South Africa: <em>De Jure</em> Law Journal </a></td></tr>
+#                     <tr><td><a href="/za/journals/DEREBUS" class="link-secondary">South Africa: <em>DE REBUS</em>  </a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAECBHC" class="link-secondary">South Africa: Eastern Cape High Court, Bhisho</a></td></tr>
+#                     <tr><td><a href="/za/other/ZAECBHCRolls" class="link-secondary">South Africa: Eastern Cape High Court Rolls, Bisho</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAECGHC" class="link-secondary">South Africa: Eastern Cape High Court, Grahamstown</a></td></tr>
+#                     <tr><td><a href="/za/other/ZAECGHCRolls" class="link-secondary">South Africa: Eastern Cape High Court Rolls, Grahamstown</a></td></tr>
 
 
 def main():
@@ -263,17 +274,7 @@ def main():
 
     target_HTML = """<table class="table table-striped table-bordered rounded">
                     <tbody> 
-                    <tr><td><a href="/za/cases/ZACGSO" class="link-secondary">South Africa: Consumer Goods and Services Ombud</a></td></tr>
-                    <tr><td><a href="/za/cases/ZACC" class="link-secondary">South Africa: Constitutional Court</a></td></tr>
-                    <tr><td><a href="/za/other/ZACCRolls" class="link-secondary">South Africa: Constitutional Court Rolls</a></td></tr>
-                    <tr><td><a href="/za/cases/ZACCP" class="link-secondary">South Africa: Court of the Commissioner of Patents</a></td></tr>
-                    <tr><td><a href="/za/cases/ZACOMMC" class="link-secondary">South Africa: Commercial Crime Court</a></td></tr>
-                    <tr><td><a href="/za/journals/DEJURE" class="link-secondary">South Africa: <em>De Jure</em> Law Journal </a></td></tr>
-                    <tr><td><a href="/za/journals/DEREBUS" class="link-secondary">South Africa: <em>DE REBUS</em>  </a></td></tr>
-                    <tr><td><a href="/za/cases/ZAECBHC" class="link-secondary">South Africa: Eastern Cape High Court, Bhisho</a></td></tr>
-                    <tr><td><a href="/za/other/ZAECBHCRolls" class="link-secondary">South Africa: Eastern Cape High Court Rolls, Bisho</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAECGHC" class="link-secondary">South Africa: Eastern Cape High Court, Grahamstown</a></td></tr>
-                    <tr><td><a href="/za/other/ZAECGHCRolls" class="link-secondary">South Africa: Eastern Cape High Court Rolls, Grahamstown</a></td></tr>
+                   
                     <tr><td><a href="/za/cases/ZAECQBHC" class="link-secondary">South Africa: Eastern Cape High Court, Gqeberha</a></td></tr>
                     <tr><td><a href="/za/cases/ZAECMKHC" class="link-secondary">South Africa: Eastern Cape High Court, Makhanda</a></td></tr>
                     <tr><td><a href="/za/cases/ZAECMHC" class="link-secondary">South Africa: Eastern Cape High Court, Mthatha</a></td></tr>
