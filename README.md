@@ -2,7 +2,7 @@
 
 ## Overview
 
-Alfred is a comprehensive software ecosystem developed and maintained by JUDICIAL ARTIFICIAL INTELLIGENCE LABS. This monorepo houses all frontend applications, backend services, machine learning models, shared packages, scripts, and documentation necessary for the development, deployment, and maintenance of our software solutions.
+Alfred is a comprehensive software ecosystem developed and maintained by the JUDICIAL ARTIFICIAL INTELLIGENCE LAB. This monorepo houses all frontend applications, backend services, machine learning models, shared packages, scripts, and documentation necessary for the development, deployment, and maintenance of our software solutions.
 
 ## Repository Structure
 
