@@ -266,6 +266,27 @@ def process_subdirectories(base_url="", extracted=None):
 #                     <tr><td><a href="/za/other/ZAECBHCRolls" class="link-secondary">South Africa: Eastern Cape High Court Rolls, Bisho</a></td></tr>
 #                     <tr><td><a href="/za/cases/ZAECGHC" class="link-secondary">South Africa: Eastern Cape High Court, Grahamstown</a></td></tr>
 #                     <tr><td><a href="/za/other/ZAECGHCRolls" class="link-secondary">South Africa: Eastern Cape High Court Rolls, Grahamstown</a></td></tr>
+# <tr><td><a href="/za/cases/ZAECQBHC" class="link-secondary">South Africa: Eastern Cape High Court, Gqeberha</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAECMKHC" class="link-secondary">South Africa: Eastern Cape High Court, Makhanda</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAECMHC" class="link-secondary">South Africa: Eastern Cape High Court, Mthatha</a></td></tr>
+#                     <tr><td><a href="/za/other/ZAECMHCRolls" class="link-secondary">South Africa: Eastern Cape High Court Rolls, Mthatha</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAECPEHC" class="link-secondary">South Africa: Eastern Cape High Court, Port Elizabeth</a></td></tr>
+#                     <tr><td><a href="/za/other/ZAECPEHCRolls" class="link-secondary">South Africa: Eastern Cape High Court Rolls, Port Elizabeth</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAECELLC" class="link-secondary">South Africa: Eastern Cape High Court, East London Local Court</a></td></tr>
+#                     <tr><td><a href="/za/other/ZAECELLCRolls" class="link-secondary">South Africa: Eastern Cape High Court, East London Local Court Rolls</a></td></tr>
+#                     <tr><td><a href="/za/gaz/ZAECPrGaz/" class="link-secondary">South Africa: Eastern Cape Provincial Government Gazettes</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAEC" class="link-secondary">South Africa: Electoral Court </a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAEQC" class="link-secondary">South Africa: Equality Court</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAFSHC" class="link-secondary">South Africa: Free State High Court, Bloemfontein</a></td></tr>
+#                     <tr><td><a href="/za/other/ZAFSHCRolls" class="link-secondary">South Africa: Free State High Court Rolls, Bloemfontein</a></td></tr>
+#                     <tr><td><a href="/za/gaz/ZAFSPrGaz/" class="link-secondary">South Africa: Free State Provincial Government Gazettes</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAECHC" class="link-secondary">South Africa: High Courts - Eastern Cape</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAGPHC" class="link-secondary">South Africa: High Courts - Gauteng</a></td></tr>
+#                     <tr><td><a href="/za/gaz/ZAGPPrGaz/" class="link-secondary">South Africa: Gauteng Provincial Government Gazettes</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAKZHC" class="link-secondary">South Africa: High Courts - Kwazulu Natal</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAKZDHC" class="link-secondary">South Africa: Kwazulu-Natal High Court, Durban</a></td></tr>
+#                     <tr><td><a href="/za/other/ZAKZDHCRolls" class="link-secondary">South Africa: Kwazulu-Natal High Court Rolls, Durban</a></td></tr>
+#                     <tr><td><a href="/za/cases/ZAKZPHC" class="link-secondary">South Africa: Kwazulu-Natal High Court, Pietermaritzburg</a></td></tr>
 
 
 def main():
@@ -275,27 +296,7 @@ def main():
     target_HTML = """<table class="table table-striped table-bordered rounded">
                     <tbody> 
                    
-                    <tr><td><a href="/za/cases/ZAECQBHC" class="link-secondary">South Africa: Eastern Cape High Court, Gqeberha</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAECMKHC" class="link-secondary">South Africa: Eastern Cape High Court, Makhanda</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAECMHC" class="link-secondary">South Africa: Eastern Cape High Court, Mthatha</a></td></tr>
-                    <tr><td><a href="/za/other/ZAECMHCRolls" class="link-secondary">South Africa: Eastern Cape High Court Rolls, Mthatha</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAECPEHC" class="link-secondary">South Africa: Eastern Cape High Court, Port Elizabeth</a></td></tr>
-                    <tr><td><a href="/za/other/ZAECPEHCRolls" class="link-secondary">South Africa: Eastern Cape High Court Rolls, Port Elizabeth</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAECELLC" class="link-secondary">South Africa: Eastern Cape High Court, East London Local Court</a></td></tr>
-                    <tr><td><a href="/za/other/ZAECELLCRolls" class="link-secondary">South Africa: Eastern Cape High Court, East London Local Court Rolls</a></td></tr>
-                    <tr><td><a href="/za/gaz/ZAECPrGaz/" class="link-secondary">South Africa: Eastern Cape Provincial Government Gazettes</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAEC" class="link-secondary">South Africa: Electoral Court </a></td></tr>
-                    <tr><td><a href="/za/cases/ZAEQC" class="link-secondary">South Africa: Equality Court</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAFSHC" class="link-secondary">South Africa: Free State High Court, Bloemfontein</a></td></tr>
-                    <tr><td><a href="/za/other/ZAFSHCRolls" class="link-secondary">South Africa: Free State High Court Rolls, Bloemfontein</a></td></tr>
-                    <tr><td><a href="/za/gaz/ZAFSPrGaz/" class="link-secondary">South Africa: Free State Provincial Government Gazettes</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAECHC" class="link-secondary">South Africa: High Courts - Eastern Cape</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAGPHC" class="link-secondary">South Africa: High Courts - Gauteng</a></td></tr>
-                    <tr><td><a href="/za/gaz/ZAGPPrGaz/" class="link-secondary">South Africa: Gauteng Provincial Government Gazettes</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAKZHC" class="link-secondary">South Africa: High Courts - Kwazulu Natal</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAKZDHC" class="link-secondary">South Africa: Kwazulu-Natal High Court, Durban</a></td></tr>
-                    <tr><td><a href="/za/other/ZAKZDHCRolls" class="link-secondary">South Africa: Kwazulu-Natal High Court Rolls, Durban</a></td></tr>
-                    <tr><td><a href="/za/cases/ZAKZPHC" class="link-secondary">South Africa: Kwazulu-Natal High Court, Pietermaritzburg</a></td></tr>
+                    
                     <tr><td><a href="/za/other/ZAKZPHCRolls" class="link-secondary">South Africa: Kwazulu-Natal High Court Rolls, Pietermaritzburg</a></td></tr>
                     <tr><td><a href="/za/gaz/ZAKZPrGaz/" class="link-secondary">South Africa: Kwazulu-Natal Provincial Government Gazettes</a></td></tr>
                     <tr><td><a href="/za/cases/ZAIC" class="link-secondary">South Africa: Industrial Court</a></td></tr>
